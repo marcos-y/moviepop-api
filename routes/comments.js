@@ -31,10 +31,37 @@ db = mysql.createPool({
 })
 */
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.json('comments');
-});
+
+/* Users */
+//get comments list by movieId------------------------
+const getCommentsList = (req, res, next) => {
+  movieId = req.params.movieId
+  let sql = `SELECT * FROM comments WHERE movieId = ? `;
+  db.query(sql, [movieId] , function (err, data, fields) {
+      if (err) throw err;
+      res.json(data)
+  })
+}
+router.get('/:movieId' , getCommentsList);
+
+
+
+//post comment----------------------------------------
+const postComment = (req, res, next) => { 
+
+  let sql = `INSERT INTO comments ( movieId, comment, UserName, UserId ) VALUES (?)`;
+  let values = [
+    req.body.movieId,
+    req.body.comment,
+    req.body.UserName,
+    req.body.UserId,
+  ];
+  db.query(sql, [values] , function (err, data, fields) {
+      if (err) throw err;
+      res.json(data)
+  })
+}
+router.post('/' , postComment);
 
 /* Users */
 //get comments list

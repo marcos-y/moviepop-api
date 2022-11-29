@@ -42,11 +42,30 @@ const getFavorites = (req, res, next) => {
 }
 router.get('/:userId' , getFavorites);
 
-/* GET favorites listing. */
-{/*
-router.get('/', function(req, res, next) {
-  res.json('favorites');
-});
-*/}
+
+//POST favorite movie
+const postFavoriteMovie = (req, res) => {
+
+  let sql = `INSERT INTO favorites ( userId, name, language, genres, premiered, synopsys, image, movieId ) VALUES (?)`;
+  let values = [
+    req.body.userId,
+    req.body.name,
+    req.body.language,
+    req.body.genres,
+    req.body.premiered,
+    req.body.synopsys,
+    req.body.image,
+    req.body.movieId,
+  ];
+  console.log(values)
+  db.query(sql, [values], function(err, data, fields) {
+    if (err) throw err;
+    res.json({
+      status: 200,
+      message: "New movie added successfully"
+    })
+  })
+}
+router.post('/', postFavoriteMovie);
 
 module.exports = router;
