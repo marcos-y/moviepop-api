@@ -13,23 +13,25 @@ app.listen( 8002, function () {
 mysql = require('mysql'), 
 
 // setup local database
+{/*
   db = mysql.createPool({
   host: 'localhost',
   user: 'root',
   password: '',
   database: 'moviepop'
 })
+*/}
 
 //setup remote hostinger database
-/*
+
 db = mysql.createPool({
   host: '185.213.81.1',
-  user: 'u475078680_mystore',
-  password: 'MyStore12345',
-  database: 'u475078680_mystore',
+  user: 'u475078680_moviepop',
+  password: 'Root12345',
+  database: 'u475078680_moviepop',
   debug: false
 })
-*/
+
 
 
 /* Users */
