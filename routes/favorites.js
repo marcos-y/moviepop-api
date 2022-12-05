@@ -37,8 +37,9 @@ db = mysql.createPool({
 const getFavorites = (req, res, next) => {
   userId = req.params.userId
   let sql = `SELECT * FROM favorites WHERE userId = ? `;
-  db.query(sql , [userId], (err, results) => {
-    res.json(results)
+  db.query(sql , [userId], (err, data) => {
+    if (err) throw err;
+    res.json(data)
 })
 }
 router.get('/:userId' , getFavorites);
